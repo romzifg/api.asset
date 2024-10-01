@@ -20,3 +20,56 @@ model User {
 
   @@map("user")
 }
+
+model Customer {
+  id Int @id @default(autoincrement())
+  name String
+  address String
+  pic String
+  phone String
+  email String
+  status Int @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  assetHistory AssetHistory[]
+
+  @@map("customer")
+}
+
+model Asset {
+  id Int @id @default(autoincrement())
+  name String
+  type String
+  serialNumber String @map("serial_number")
+  condition Condition @default(GOOD)
+  status AssetStatus @default(READY)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  assetHistory AssetHistory[]
+
+  @@map("asset")
+}
+
+enum Condition {
+  GOOD
+  BAD
+  REPAIR
+}
+
+enum AssetStatus {
+  READY
+  QC
+  DELIVERED
+}
+
+model AssetHistory {
+  id Int @id @default(autoincrement())
+  assetId Int @map("asset_id")
+  asset Asset @relation(fields: [assetId], references: [id])
+  description String
+  customerId Int @map("customer_id")
+  customer Customer @relation(fields: [customerId], references: [id])
+
+  @@map("asset_history")
+}
