@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("API_DB_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement()) 
+  name String
+  username String
+  password String
+  email String
+  status Int @default(0)
+  profilePicture String @map("profile_picture")
+  createdAt DateTime @default(now()) @map("created_at")
+  updateddAt DateTime @default(now()) @map("updated_at")
+
+  @@map("user")
+}
