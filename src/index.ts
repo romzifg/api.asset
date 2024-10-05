@@ -7,10 +7,11 @@ import path from 'path'
 import helmet from 'helmet'
 import {rateLimit} from 'express-rate-limit'
 import { notFound, errorHandler } from './utils/errorHandler';
+import apiv1 from '@/routes/v1'
 import dotenv from 'dotenv'
 dotenv.config()
 
-// export const prisma = new PrismaClient()
+export const prisma = new PrismaClient()
 
 async function main() {
     const app = express()
@@ -37,29 +38,7 @@ async function main() {
     const dir = path.join(__dirname, 'public');
     app.use('/public', express.static(dir));
 
-    // Get Data
-    app.get('/', (req: Request, res: Response) => {
-        return res.status(200).json({
-            status: true,
-            message: 'Success',
-            data: {
-                name: 'Romzi',
-                birth: '20 September 1997',
-                gender: 'Male'
-            }
-        })
-    })
-
-    // Post Data
-    app.post('/', (req: Request, res: Response) => {
-        const data = {
-            name: req.body.name,
-            birth: req.body.birth,
-            gender: req.body.gender,
-        }
-
-        return res.status(200).json(data)
-    })
+    app.use('/api/v1', apiv1)
 
     app.use(notFound);
     app.use(errorHandler);
@@ -74,11 +53,11 @@ async function main() {
 }
 
 main()
-    // .then(async () => {
-    //     await prisma.$connect();
-    // })
-    // .catch(async (e) => {
-    //     console.error(e);
-    //     await prisma.$disconnect();
-    //     process.exit(1);
-    // });
+    .then(async () => {
+        await prisma.$connect();
+    })
+    .catch(async (e) => {
+        console.error(e);
+        await prisma.$disconnect();
+        process.exit(1);
+    });
