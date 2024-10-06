@@ -1,10 +1,10 @@
 export interface UserInterface {
-    id: number,
-    name: string,
-    username: string,
+    id?: number,
+    name?: string,
+    username?: string,
     password?: string,
-    email: string,
-    status: number,
+    email?: string,
+    status?: number,
     profile_picture?: string,
     created_at?: Date,
     updated_at?: Date,
@@ -17,4 +17,11 @@ export interface UserInputInterface {
     confirm_password: string,
     email: string,
     profile_picture: string,
+}
+
+export interface UserUpdateInputInterface {
+    name?: string,
+    username?: string,
+    email?: string,
+    profile_picture?: string,
 }
