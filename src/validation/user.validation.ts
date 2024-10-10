@@ -7,7 +7,6 @@ export const createUserValidation = (payload: UserInputInterface) => {
         username: Joi.string().required().min(6),
         email: Joi.string().required().email(),
         password: Joi.string().required().min(8),
-        confirm_password: Joi.string().required().min(8),
     })
 
     return schema.validate(payload)

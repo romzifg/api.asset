@@ -43,11 +43,6 @@ export const store = async (req: Request, res: Response, next: NextFunction) => 
             throw new Error(errorMessage)
         }
 
-        if (body.password !== body.confirm_password) {
-            res.statusCode = 422
-            throw new Error('Password not match')
-        }
-
         const salt = await bcrypt.genSaltSync(10)
         body.password = bcrypt.hashSync(body.password, salt)
 
