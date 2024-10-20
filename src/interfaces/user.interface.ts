@@ -25,3 +25,8 @@ export interface UserUpdateInputInterface {
     email?: string,
     profile_picture?: string,
 }
+
+export interface UserLoginInterface {
+    username: string,
+    password: string
+}

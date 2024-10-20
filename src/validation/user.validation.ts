@@ -1,4 +1,4 @@
-import { UserInputInterface, UserUpdateInputInterface } from "@/interfaces/user.interface";
+import { UserInputInterface, UserLoginInterface, UserUpdateInputInterface } from "@/interfaces/user.interface";
 import Joi from "joi";
 
 export const createUserValidation = (payload: UserInputInterface) => {
@@ -25,6 +25,16 @@ export const updateUserValidation = (payload: UserUpdateInputInterface) => {
 
 export const changeStatusValidation = (payload: number) => {
     const schema = Joi.number().required()
+
+    return schema.validate(payload)
+}
+
+export const loginValidation = (payload: UserLoginInterface) => {
+    const schema = Joi.object({
+        username: Joi.string().required(),
+        password: Joi.string().required(),
+    })
+
 
     return schema.validate(payload)
 }
