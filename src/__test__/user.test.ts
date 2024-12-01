@@ -10,19 +10,19 @@ describe("User End Point", () => {
     describe("With Token Middleware", () => {
         it("Status Code 200", async () => {
             await supertest(app).get("/api/v1/user")
-                .set('authorization', 'P@ssw0rd123')
+                .set({ ['api-token']: 'P@ssw0rd123', authorization: 'Bearer test' })
                 .expect(200)
         })
         it("Invalid Token Middleware", async () => {
             await supertest(app).get("/api/v1/user")
-                .set('authorization', 'asal-asalan')
+                .set({ ['api-token']: 'asal-asalan', authorization: 'Bearer asal' })
                 .expect(401)
         })
     })
     describe("Validation Name", () => {
         it("Empty Name Input", async () => {
             await supertest(app).post("/api/v1/user")
-                .set('authorization', 'P@ssw0rd123')
+                .set({ ['api-token']: 'P@ssw0rd123', authorization: 'Bearer test' })
                 .expect('Content-Type', /json/)
                 .send({
                     name: '',
@@ -39,7 +39,7 @@ describe("User End Point", () => {
     describe("Validation Email", () => {
         it("Invalid Email", async () => {
             await supertest(app).post("/api/v1/user")
-                .set('authorization', 'P@ssw0rd123')
+                .set({ ['api-token']: 'P@ssw0rd123', authorization: 'Bearer test' })
                 .expect('Content-Type', /json/)
                 .send({
                     name: 'testing',

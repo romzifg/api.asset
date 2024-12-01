@@ -13,7 +13,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         const validate = loginValidation(body)
         if (validate.error) {
             res.statusCode = 422
-            throw new Error(validate.error.details[0].message.replace("\"", "").replace("\"", ""))
+            throw new Error(validate.error.details[0].message.replaceAll("\"", ""))
         }
 
         const user: UserInterface | null = await prisma.user.findFirst({

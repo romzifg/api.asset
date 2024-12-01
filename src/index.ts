@@ -43,8 +43,11 @@ app.all("*", (req: Request, res: Response) => {
     res.status(404).json({ error: `Route ${req.originalUrl} not found` });
 });
 
-app.listen(process.env.API_PORT, () => {
-    console.log(`Running on port ${process.env.API_PORT}`)
-})
+const port = process.env.API_PORT || 4000
+if (process.env.NODE_ENV !== "test") {
+    app.listen(port, () => {
+        console.log(`Running on port ${port}`)
+    })
+}
 
 export default app

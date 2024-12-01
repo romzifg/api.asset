@@ -13,6 +13,9 @@
     },
     "types": ["node", "jest"],
     "typeRoots": ["./types", "./node_modules/@types"],
+    "lib": [
+       "ES2021.String"
+    ]
   },
   "include":["./src/**/*.tsx", "./src/**/*.ts"],
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]

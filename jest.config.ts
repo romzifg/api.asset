@@ -12,6 +12,9 @@ const config: Config = {
     },
     verbose: true,
     forceExit: true,
+    transformIgnorePatterns: [
+        "/!node_modules\\/lodash-es/"
+    ]
 }
 
 export default config
